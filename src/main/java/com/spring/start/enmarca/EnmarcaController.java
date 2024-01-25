@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.start.actividad.Actividad;
+import com.spring.start.actividad.ActividadDAO;
+import com.spring.start.plan.PlanDAO;
 
 @Controller
 public class EnmarcaController {
@@ -19,6 +21,10 @@ public class EnmarcaController {
 	
 	@Autowired
 	EnmarcaDAO enmarcaDAO;
+	@Autowired
+	ActividadDAO actividadDAO;
+	@Autowired
+	PlanDAO planDAO;
 	
 	@GetMapping("/enmarca")
 	public ModelAndView getEnmarca() {
@@ -26,90 +32,66 @@ public class EnmarcaController {
 		ModelAndView model = new ModelAndView();
 		model.setViewName("enmarcaciones");
 		List<Enmarca> listaEnmarca = (List<Enmarca>)enmarcaDAO.findAll();
-		for(Enmarca enmarca: listaEnmarca) {
-			System.out.println(enmarca);
-		}
 		model.addObject("listaEnmarca", listaEnmarca);
 		
 		return model;
 	}
 	
-//	@GetMapping("/actividad/{id}")
-//	public ModelAndView getActividad(@PathVariable long id) {
-//		
-//		
-//		ModelAndView model = new ModelAndView();
-//		model.setViewName("actividad");
-//		Optional<Actividad> actividad = actividadDAO.findById(id);
-//		if(actividad.isPresent()) {
-//			model.addObject("actividad", actividad.get());
-//		}
-//		
-//		
-//		return model;
-//	}
-//	
-//	@GetMapping("/actividad/del/{id}")
-//	public ModelAndView deleteActividad(@PathVariable long id) {
-//
-//		ModelAndView model = new ModelAndView();
-//
-//		model.setViewName("redirect:/actividad");
-//
-//		Optional<Actividad> actividad = actividadDAO.findById(id);
-//		
-//		List<Enmarca> relacionesEnmarca = (List<Enmarca>) enmarcaDAO.findAll();
-//		
-//		for(Enmarca enmarca: relacionesEnmarca) {
-//			if(enmarca.getActividad().getId()==actividad.get().getId()) {
-//				enmarcaDAO.deleteById(enmarca.getId());
-//			}
-//		}
-//		
-//		actividadDAO.deleteById(id);
-//		
-//
-//		return model;
-//
-//	}
-//
-//	@GetMapping("/actividad/add")
-//	public ModelAndView addPlan() {
-//
-//		ModelAndView model = new ModelAndView();
-//		model.setViewName("formActividad");
-//		model.addObject("actividad", new Actividad());
-//
-//		return model;
-//
-//	}
-//
-//	@PostMapping("/actividad/save")
-//	public ModelAndView savePlan(@ModelAttribute Actividad actividad) {
-//
-//		ModelAndView model = new ModelAndView();
-//
-//		model.setViewName("redirect:/actividad");
-//		actividadDAO.save(actividad);
-//
-//		return model;
-//	}
-//	
-//	@GetMapping("/actividad/edit/{id}")
-//	public ModelAndView editPlan(@PathVariable Long id) {
-//
-//		ModelAndView model = new ModelAndView();
-//
-//		Optional<Actividad> actividad = actividadDAO.findById(id);
-//
-//		if (actividad.isPresent()) {
-//			model.addObject("actividad", actividad.get());
-//			model.setViewName("formActividad");
-//
-//		} else {
-//			model.setViewName("redirec:/actividad");
-//		}
-//
-//		return model;
-//	}
+
+		
+
+	@GetMapping("/enmarca/del/{id}")
+	public ModelAndView deleteActividad(@PathVariable long id) {
+
+		ModelAndView model = new ModelAndView();
+
+		model.setViewName("redirect:/enmarca");
+
+		enmarcaDAO.deleteById(id);		
+
+		return model;
+
+	}
+
+	@GetMapping("/enmarca/add")
+	public ModelAndView addPlan() {
+
+		ModelAndView model = new ModelAndView();
+		model.setViewName("formEnmarca");
+		model.addObject("enmarca", new Enmarca());
+		model.addObject("actividades", actividadDAO.findAll());
+		model.addObject("planes", planDAO.findAll());
+
+		return model;
+
+	}
+
+	@PostMapping("/enmarca/save")
+	public ModelAndView savePlan(@ModelAttribute Enmarca enmarca) {
+
+		ModelAndView model = new ModelAndView();
+
+		model.setViewName("redirect:/enmarca");
+		enmarcaDAO.save(enmarca);
+
+		return model;
+	}
+	
+	@GetMapping("/enmarca/edit/{id}")
+	public ModelAndView editPlan(@PathVariable Long id) {
+
+		ModelAndView model = new ModelAndView();
+
+		Optional<Enmarca> enmarca = enmarcaDAO.findById(id);
+
+		if (enmarca.isPresent()) {
+			model.addObject("enmarca", enmarca.get());
+			model.setViewName("formEnmarca");
+
+		} else {
+			model.setViewName("redirec:/enmarca");
+		}
+
+		return model;
+	}
 }

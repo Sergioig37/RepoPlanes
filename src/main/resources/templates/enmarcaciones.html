@@ -40,21 +40,30 @@
                   <span th:text="${enmarca.id}"> </span>
                 </th>
                 <td>
-                <span th:text="${enmarca.plan}"></span>
+                <span th:text="${enmarca.plan.nombre}"></span>
                 </td>
                 <td>
-                  <span th:text="${enmarca.actividad}"></span>
+                  <span th:text="${enmarca.actividad.nombre}"></span>
                 </td>
-                <td>+gjgmjmuymt
+                <td>
                   <span th:text="${enmarca.fecha}"></span>
                 </td>
                 <td>
+                  <a
+                  class="btn btn-danger"
+                  th:href="@{/enmarca/del/{id}(id = ${enmarca.id})}"
+                  >Eliminar</a
+                >
                 </td>
               </tr>
             </tbody>
           </table>
         </div>
         <div class="col-2 align-items-center">
+          <a
+          class="btn btn-success"
+          th:href="@{/enmarca/add}"
+          >Relacionar actividad y plan</a>
         </div>
       </div>
     </div>

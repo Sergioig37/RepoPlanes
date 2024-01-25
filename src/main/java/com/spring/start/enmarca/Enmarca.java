@@ -63,7 +63,7 @@ public class Enmarca {
 
 	@Override
 	public String toString() {
-		return "Enmarca [id=" + id + ", plan=" + plan.getNombre() + ", actividad=" + actividad.getNombre() + ", fecha=" + fecha + "]";
+		return "Enmarca [id=" + id + ", plan=" + plan + ", actividad=" + actividad + ", fecha=" + fecha + "]";
 	}
 	
 	
