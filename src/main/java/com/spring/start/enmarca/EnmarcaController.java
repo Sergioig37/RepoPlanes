@@ -71,18 +71,11 @@ public class EnmarcaController {
 
 		ModelAndView model = new ModelAndView();
 		
-		List<Enmarca> enmarcaciones = (List<Enmarca>) enmarcaDAO.findAll();
+		Optional<Enmarca> enmarcaClon = enmarcaDAO.getEnmarcaIgual(enmarca.getPlan().getId(), enmarca.getActividad().getId());
 		
-		
-		int i = 0;
-		
-		do{
-			if(!enmarcaciones.get(i).getActividad().equals(enmarca.getActividad())&&!enmarcaciones.get(i).getPlan().equals(enmarca.getPlan())) {
-				enmarcaDAO.save(enmarca);
-			}
+		if(enmarcaClon.isEmpty()) {
+			enmarcaDAO.save(enmarca);
 		}
-		while(!enmarcaciones.get(i).getActividad().equals(enmarca.getActividad())&&!enmarcaciones.get(i).getPlan().equals(enmarca.getPlan()));
-		
 		
 		model.setViewName("redirect:/enmarca");
 		
