@@ -70,9 +70,22 @@ public class EnmarcaController {
 	public ModelAndView savePlan(@ModelAttribute Enmarca enmarca) {
 
 		ModelAndView model = new ModelAndView();
-
+		
+		List<Enmarca> enmarcaciones = (List<Enmarca>) enmarcaDAO.findAll();
+		
+		
+		int i = 0;
+		
+		do{
+			if(!enmarcaciones.get(i).getActividad().equals(enmarca.getActividad())&&!enmarcaciones.get(i).getPlan().equals(enmarca.getPlan())) {
+				enmarcaDAO.save(enmarca);
+			}
+		}
+		while(!enmarcaciones.get(i).getActividad().equals(enmarca.getActividad())&&!enmarcaciones.get(i).getPlan().equals(enmarca.getPlan()));
+		
+		
 		model.setViewName("redirect:/enmarca");
-		enmarcaDAO.save(enmarca);
+		
 
 		return model;
 	}

@@ -22,8 +22,7 @@
   <body>
     <div class="container">
       <div class="row">
-        <div class="col-1"></div>
-        <div class="col-9">
+        <div class="col-8">
           <table class="table table-sm table-hover">
             <thead>
               <tr>
@@ -70,12 +69,43 @@
               </tr>
             </tbody>
           </table>
+          <a class="btn btn-success" th:href="@{/plan/add}"
+            >Añadir plan nuevo</a
+          >
         </div>
-        <div class="col-2 align-items-center">
-          <a
-          class="btn btn-success"
-          th:href="@{/plan/add}"
-          >Añadir plan nuevo</a>
+        <div class="col-4">
+          <form th:action="@{~/plan/save}" th:object="${plan}" method="post">
+            <div class="card bg-light mb-3" style="max-width: 18rem;">
+              <div class="card-header">
+                <input readonly type="text" th:field="*{id}" size=2/>
+              </div>
+              <div class="card-body">
+              <h5 class="card-title"><input type="text" id="nombre" name="nombre" th:field="*{nombre}"></h5>
+              <p class="card-text">
+                <ul class="list-group">
+                  <li class="list-group-item list-group-item-action list-group-item-warning list-group-item d-flex justify-content-between align-items-center">
+                  Tutor: 
+                  <span th:text="${plan.tutor?.nombre}" th:if="${plan.tutor!=null}"></span>
+                  
+                  <select th:if="${plan.tutor==null}" class="form-control" th:field="*{tutor}"> 
+                    <option th:each="t:${tutores}" th:value="${t.id}" th:text="${t.nombre}"></option>
+                  </select>
+                  </li>
+                  <li class="list-group-item list-group-item-action list-group-item-warning list-group-item d-flex justify-content-between align-items-center">
+                  Curso: 
+                  <select class="form-control" th:field="*{idCurso}"> 
+                    <option value="">No asignado</option>
+                    <option th:each="c:${cursos}" th:value="${c.id}" th:text="${c.nombre}"></option>
+                  </select>
+                  </li>
+                </ul>
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </p>
+              </div>
+            </div>		
+            </div> 
+              
+            </form>
         </div>
       </div>
     </div>

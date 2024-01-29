@@ -33,6 +33,9 @@ public class PlanController {
 		ModelAndView model = new ModelAndView();
 		model.setViewName("planes");
 		List<Plan> planes = (List<Plan>) planDAO.findAll();
+		model.addObject("plan", new Plan());
+		model.addObject("cursos", cursoDAO.findAll());
+		model.addObject("tutores", tutorDAO.getTutoresNoEnlazados());
 
 		model.addObject("planes", planes);
 
