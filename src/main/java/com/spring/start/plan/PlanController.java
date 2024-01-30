@@ -118,16 +118,16 @@ public class PlanController {
 		return model;
 	}
 
-//	@GetMapping("/plan/nuevo/{id}")
-//	public ModelAndView popupNuevoPlan(@ModelAttribute Plan plan, @PathVariable long id) {
-//		
-//		ModelAndView model = new ModelAndView();
-//		
-//		model.setViewName("redirect:/plan");
-//		
-//		return model;
-//		
-//	}
+	
+	@GetMapping("plan/nuevo/{id}")
+	public ModelAndView popupNuevoPlan(@ModelAttribute Plan plan) {
+		ModelAndView model = new ModelAndView();
+		
+		model.setViewName("planes");
+		model.addObject("planNuevo", plan);
+		
+		return model;
+	}
 	
 	@GetMapping("/plan/edit/{id}")
 	public ModelAndView editPlan(@PathVariable Long id) {
