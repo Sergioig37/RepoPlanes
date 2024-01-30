@@ -4,6 +4,7 @@ import java.util.Set;
 
 import com.spring.start.enmarca.Enmarca;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -25,7 +26,7 @@ public class Actividad {
 	private String descripcion;
 	
 	
-	@OneToMany(mappedBy="actividad")
+	@OneToMany(mappedBy="actividad", cascade=CascadeType.ALL)
 	private Set<Enmarca> enmarcados;
 	
 

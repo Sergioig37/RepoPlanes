@@ -39,7 +39,7 @@ public class Plan {
 	private Tutor tutor;
 	
 	
-	@OneToMany(mappedBy="plan")
+	@OneToMany(mappedBy="plan", cascade=CascadeType.ALL)
 	private Set<Enmarca> enmarcados;
 	
 

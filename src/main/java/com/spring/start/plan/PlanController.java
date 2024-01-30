@@ -72,7 +72,7 @@ public class PlanController {
 				if (curso.isPresent()) {
 					List<Plan> planes = curso.get().getPlanes();
 					planes.remove(plan.get());
-
+					plan.get().setIdCurso(null);
 					curso.get().setPlanes(planes); 
 
 					cursoDAO.save(curso.get());
