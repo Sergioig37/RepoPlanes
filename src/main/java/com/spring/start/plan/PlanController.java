@@ -120,13 +120,18 @@ public class PlanController {
 
 	
 	@GetMapping("plan/nuevo/{id}")
-	public ModelAndView popupNuevoPlan(@ModelAttribute Plan plan) {
+	public ModelAndView popupNuevoPlan(@ModelAttribute Plan plan, @PathVariable long id) {
+		
 		ModelAndView model = new ModelAndView();
 		List<Plan> planNuevo = new ArrayList<Plan>(); 
 		planNuevo.add(plan);
+		
 		List<Plan> planes = (List<Plan>) planDAO.findAll();
+		
 		model.addObject("plan", new Plan());
+		
 		model.addObject("cursos", cursoDAO.findAll());
+		
 		model.addObject("tutores", tutorDAO.getTutoresNoEnlazados());
 		model.addObject("planes", planes);
 		model.setViewName("planes");
