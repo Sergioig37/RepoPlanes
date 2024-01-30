@@ -28,7 +28,7 @@ public class PlanController {
 	CursoDAO cursoDAO;
 
 	@GetMapping("/plan")
-	public ModelAndView getPlanes(@ModelAttribute Plan plan) {
+	public ModelAndView getPlanes() {
 
 		ModelAndView model = new ModelAndView();
 		model.setViewName("planes");
@@ -36,7 +36,6 @@ public class PlanController {
 		model.addObject("plan", new Plan());
 		model.addObject("cursos", cursoDAO.findAll());
 		model.addObject("tutores", tutorDAO.getTutoresNoEnlazados());
-		model.addObject("planNuevo", plan);
 		model.addObject("planes", planes);
 
 		return model;
@@ -112,7 +111,7 @@ public class PlanController {
 			tutorDAO.save(tutor);
 		}
 
-		model.setViewName("redirect:/plan");
+		model.setViewName("redirect:/plan/nuevo/"+plan.getId());
 		planDAO.save(plan);
 
 		return model;
