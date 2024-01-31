@@ -108,10 +108,14 @@ public class PlanController {
 			tutor.setIdPlan(plan);
 			tutorDAO.save(tutor);
 		}
+		else {
+			plan.setTutor(null);
+			planDAO.save(plan);
+		}
 
 		model.addObject("planNuevo", plan);
 		model.setViewName("redirect:/plan/nuevo/" + plan.getId());
-		planDAO.save(plan);
+		
 
 		return model;
 	}
@@ -123,16 +127,16 @@ public class PlanController {
 
 		List<Plan> planes = (List<Plan>) planDAO.findAll();
 
-		Optional<Plan> planNuevo = planDAO.findById(id);
+		Plan planNuevo = planDAO.findById(id).get();
 
-		if (planNuevo.isPresent()) {
+	
 			model.addObject("plan", new Plan());
 			model.addObject("tutores", tutorDAO.getTutoresNoEnlazados());
 			model.addObject("planes", planes);
-			model.addObject("planNuevo", planNuevo.get());
+			model.addObject("planNuevo", planNuevo);
 			model.addObject("cursos", cursoDAO.findAll());
-		model.setViewName("planes");
-		}
+			model.setViewName("planes");
+		
 		
 
 		
