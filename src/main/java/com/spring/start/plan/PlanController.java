@@ -123,16 +123,16 @@ public class PlanController {
 
 		List<Plan> planes = (List<Plan>) planDAO.findAll();
 
-		Plan planNuevo = planDAO.findById(id).get();
+		Optional<Plan> planNuevo = planDAO.findById(id);
 
-		
+		if (planNuevo.isPresent()) {
 			model.addObject("plan", new Plan());
 			model.addObject("tutores", tutorDAO.getTutoresNoEnlazados());
 			model.addObject("planes", planes);
-			model.addObject("planNuevo", planNuevo);
+			model.addObject("planNuevo", planNuevo.get());
 			model.addObject("cursos", cursoDAO.findAll());
 		model.setViewName("planes");
-		
+		}
 		
 
 		
