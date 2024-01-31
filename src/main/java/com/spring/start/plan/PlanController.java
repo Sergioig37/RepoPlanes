@@ -72,13 +72,12 @@ public class PlanController {
 				if (curso.isPresent()) {
 					List<Plan> planes = curso.get().getPlanes();
 					planes.remove(plan.get());
-					curso.get().setPlanes(planes); 
+					curso.get().setPlanes(planes);
 
 					cursoDAO.save(curso.get());
 				}
 
 			}
-
 
 			planDAO.deleteById(id);
 		}
@@ -109,36 +108,38 @@ public class PlanController {
 			tutor.setIdPlan(plan);
 			tutorDAO.save(tutor);
 		}
-		
+
 		model.addObject("planNuevo", plan);
-		model.setViewName("redirect:/plan/nuevo/"+plan.getId());
+		model.setViewName("redirect:/plan/nuevo/" + plan.getId());
 		planDAO.save(plan);
 
 		return model;
 	}
 
-	
 	@GetMapping("plan/nuevo/{id}")
-	public ModelAndView popupNuevoPlan(@ModelAttribute Plan plan, @PathVariable long id) {
-		
+	public ModelAndView popupNuevoPlan(@PathVariable long id) {
+
 		ModelAndView model = new ModelAndView();
-		List<Plan> planNuevo = new ArrayList<Plan>(); 
-		planNuevo.add(plan);
-		
+
 		List<Plan> planes = (List<Plan>) planDAO.findAll();
+
+		Plan planNuevo = planDAO.findById(id).get();
+
 		
-		model.addObject("plan", new Plan());
-		
-		model.addObject("cursos", cursoDAO.findAll());
-		
-		model.addObject("tutores", tutorDAO.getTutoresNoEnlazados());
-		model.addObject("planes", planes);
+			model.addObject("plan", new Plan());
+			model.addObject("tutores", tutorDAO.getTutoresNoEnlazados());
+			model.addObject("planes", planes);
+			model.addObject("planNuevo", planNuevo);
+			model.addObject("cursos", cursoDAO.findAll());
 		model.setViewName("planes");
-		model.addObject("planNuevo", planNuevo);
 		
+		
+
+		
+
 		return model;
 	}
-	
+
 	@GetMapping("/plan/edit/{id}")
 	public ModelAndView editPlan(@PathVariable Long id) {
 

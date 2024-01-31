@@ -113,13 +113,21 @@
           <div class="toast-header">
             <svg class="bd-placeholder-img rounded me-2" width="20" height="20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#007aff"></rect></svg>
             <strong class="me-auto">Bootstrap</strong>
-            <small>11 mins ago</small>
-            <a class="btn-close" data-bs-dismiss="toast" aria-label="Close" th:href="@{~/plan}">
+            <small>Ahora</small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close" th:href="@{~/plan}">
               
-            </a>
+            </button>
           </div>
-          <div class="toast-body" th:each="planito: ${planNuevo}">
-              Se ha añadido el plan <span th:text="${planito.nombre}" ></span>
+          <div class="toast-body">
+              Se ha añadido el plan <span th:text="${planNuevo.nombre}" ></span>
+              <p>
+                Tutor:
+                <span th:text="${planNuevo.tutor?.nombre}"></span>
+              </p>
+              <p>
+                Curso:
+                <span th:text="${planNuevo.idCurso?.nombre}"></span>
+              </p>
           </div>
         </div>
 
