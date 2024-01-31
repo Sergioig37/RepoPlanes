@@ -72,7 +72,6 @@ public class PlanController {
 				if (curso.isPresent()) {
 					List<Plan> planes = curso.get().getPlanes();
 					planes.remove(plan.get());
-					plan.get().setIdCurso(null);
 					curso.get().setPlanes(planes); 
 
 					cursoDAO.save(curso.get());
@@ -154,7 +153,7 @@ public class PlanController {
 			model.setViewName("formPlan");
 
 		} else {
-			model.setViewName("redirec:/plan");
+			model.setViewName("redirect:/plan");
 		}
 
 		return model;
