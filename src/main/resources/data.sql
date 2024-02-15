@@ -34,4 +34,5 @@ insert into enmarca(actividad_id, plan_id, fecha) values(2, 1, '14/09/2024');
 
 
 insert into usuario(usuario, password) values('sergio', '$2a$12$6ish92kXsSu4NnsD0N0WneCB5Fuw9PvBtTYuIaS/eYRm7epJV1xdS');
+insert into usuario(usuario, password) values('mario', '$2a$12$6ish92kXsSu4NnsD0N0WneCB5Fuw9PvBtTYuIaS/eYRm7epJV1xdS');
 

@@ -75,7 +75,7 @@
           >
         </div>
         <div class="col-4">
-          <form th:action="@{~/plan/save}" th:object="${plan}" method="post">
+          <form th:if="${not #lists isEmpty }" th:action="@{~/plan/save}" th:object="${plan}" method="post">
             <div class="card bg-light mb-3" style="max-width: 18rem;">
               <div class="card-header">
                 <input readonly type="text" th:field="*{id}" size=2/>

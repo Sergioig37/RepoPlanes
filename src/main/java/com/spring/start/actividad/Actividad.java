@@ -1,5 +1,6 @@
 package com.spring.start.actividad;
 
+import java.util.List;
 import java.util.Set;
 
 import com.spring.start.enmarca.Enmarca;
@@ -27,7 +28,7 @@ public class Actividad {
 	
 	
 	@OneToMany(mappedBy="actividad", cascade=CascadeType.ALL)
-	private Set<Enmarca> enmarcados;
+	private List<Enmarca> enmarcados;
 	
 
 	public long getId() {

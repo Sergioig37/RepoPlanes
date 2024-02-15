@@ -16,5 +16,7 @@ public interface EnmarcaDAO extends CrudRepository<Enmarca, Long>{
 	
 	@Query(value = "SELECT * FROM Enmarca WHERE plan_id = :plan AND actividad_id = :actividad", nativeQuery = true)
 	Optional<Enmarca> getEnmarcaIgual(@Param("plan") Long plan, @Param("actividad") Long actividad);
+	
+	
 
 }

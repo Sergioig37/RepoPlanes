@@ -40,8 +40,16 @@ public class Plan {
 	
 	
 	@OneToMany(mappedBy="plan", cascade=CascadeType.ALL)
-	private Set<Enmarca> enmarcados;
+	private List<Enmarca> enmarcados;
 	
+
+	public List<Enmarca> getEnmarcados() {
+		return enmarcados;
+	}
+
+	public void setEnmarcados(List<Enmarca> enmarcados) {
+		this.enmarcados = enmarcados;
+	}
 
 	public Tutor getTutor() {
 		return tutor;

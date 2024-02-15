@@ -12,8 +12,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 import java.util.Optional;
 
+import com.spring.start.actividad.ActividadDAO;
 import com.spring.start.curso.Curso;
 import com.spring.start.curso.CursoDAO;
+import com.spring.start.enmarca.Enmarca;
+import com.spring.start.enmarca.EnmarcaDAO;
 import com.spring.start.tutor.Tutor;
 import com.spring.start.tutor.TutorDAO;
 
@@ -26,6 +29,9 @@ public class PlanController {
 	TutorDAO tutorDAO;
 	@Autowired
 	CursoDAO cursoDAO;
+	@Autowired
+	ActividadDAO actividadDAO;
+	
 
 	@GetMapping("/plan")
 	public ModelAndView getPlanes() {
@@ -46,12 +52,17 @@ public class PlanController {
 
 		ModelAndView model = new ModelAndView();
 
+		
+		
 		model.setViewName("plan");
 		Optional<Plan> plan = planDAO.findById(id);
 		if (plan.isPresent()) {
 			model.addObject("plan", plan.get());
+			model.addObject("enmarca", new Enmarca());
+			model.addObject("actividades", actividadDAO.findNotLinkPlan(plan.get().getId()));
 		}
 
+		
 		return model;
 	}
 
