@@ -84,7 +84,7 @@
           </table>
         </div>
         <div class="col col-md-3">
-          <form th:action="@{~/enmarca/save}" th:object="${enmarca}" method="post">
+          <form th:if="${not #lists.isEmpty(actividades)}" th:action="@{~/enmarca/save}" th:object="${enmarca}" method="post">
             <div class="card bg-light mb-3" style="max-width: 18rem;">
               <div class="card-header">
               
