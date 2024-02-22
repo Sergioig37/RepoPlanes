@@ -20,11 +20,17 @@
   </head>
 
   <body>
+	  
+	   <div class="row" th:insert="~{menu :: menuSuperior}">
+
+    </div>
+	  
     <div class="container">
       <div class="row">
         <div class="col-1"></div>
         <div class="col-9">
-          <table class="table table-sm table-hover">
+          <p th:if="${#lists.isEmpty(listaEnmarca)}">Vacía la tabla</p>
+          <table class="table table-sm table-hover" th:if="${not #lists.isEmpty(listaEnmarca)}">
             <thead>
               <tr>
                 <th scope="col">#</th>

@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +20,8 @@ import com.spring.start.enmarca.Enmarca;
 import com.spring.start.enmarca.EnmarcaDAO;
 import com.spring.start.tutor.Tutor;
 import com.spring.start.tutor.TutorDAO;
+
+import jakarta.validation.Valid;
 
 @Controller
 public class PlanController {
@@ -111,9 +114,20 @@ public class PlanController {
 	}
 
 	@PostMapping("/plan/save")
-	public ModelAndView savePlan(@ModelAttribute Plan plan) {
-
+	public ModelAndView savePlan(@ModelAttribute @Valid Plan plan,
+			 BindingResult bindingResult) {
 		ModelAndView model = new ModelAndView();
+		if(bindingResult.hasErrors()) {
+			
+			model.setViewName("formPlan");
+			plan.setTutor(null);
+			model.addObject("plan", plan);
+			model.addObject("cursos", cursoDAO.findAll());
+			model.addObject("tutores", tutorDAO.getTutoresNoEnlazados());
+			return model;
+		}
+		
+		
 		Tutor tutor = plan.getTutor();
 		if (tutor != null) {
 			tutor.setIdPlan(plan);
