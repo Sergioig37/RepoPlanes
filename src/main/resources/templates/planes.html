@@ -54,6 +54,7 @@
                 </td>
                 <td>
                   <a
+                  sec:authorize="hasAuthority('ADMIN')"
                     th:if="${plan.tutor!=null}"
                     class="badge badge-pill badge-danger"
                     th:href="@{~/plan/tutor/del/{idPlan}(idPlan = ${plan.id})}"

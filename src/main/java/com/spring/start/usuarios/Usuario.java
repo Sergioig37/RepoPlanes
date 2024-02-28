@@ -1,8 +1,10 @@
 package com.spring.start.usuarios;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import jakarta.persistence.Entity;
@@ -12,6 +14,10 @@ import jakarta.persistence.Id;
 public class Usuario implements UserDetails{
 
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id
 	private String usuario;
 	private String password;
@@ -33,7 +39,17 @@ public class Usuario implements UserDetails{
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		// TODO Auto-generated method stub
-		return null;
+		
+		ArrayList<SimpleGrantedAuthority> permisos = new ArrayList<SimpleGrantedAuthority>();
+		SimpleGrantedAuthority permiso;
+		if(usuario.compareTo("sergio")==0) {
+			 permiso = new  SimpleGrantedAuthority("ADMIN");
+		}
+		else {
+			permiso = new SimpleGrantedAuthority("USER");
+		}
+		permisos.add(permiso);
+		return permisos;
 	}
 	@Override
 	public String getUsername() {
